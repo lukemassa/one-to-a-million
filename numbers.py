@@ -26,6 +26,16 @@ def number_to_word(number):
         if two_digits == 0:
             return hundred
         return "%s %s" % (hundred, number_to_word(two_digits))
+    if number < 1_000_000:
+        three_digits = 100 * digits[2] + 10 * digits[1] + digits[0]
+        thousands = digits[3]
+        if len(digits) > 4:
+            thousands = thousands + digits[4] * 10
+        if len(digits) > 5:
+            thousands = thousands + digits[5] * 100
+        thousands_string = "%s thousand" % number_to_word(thousands)
+        if three_digits == 0:
+            return thousands_string
 
 
     raise ValueError("Unexpected number %s" % (number,))
@@ -60,6 +70,11 @@ def run_tests():
             self.one_test(520, "five hundred twenty")
             self.one_test(329, "three hundred twenty nine")
 
+        def test_thousand(self):
+            self.one_test(1000, "one thousand")
+            self.one_test(4000, "four thousand")
+            self.one_test(45000, "forty five thousand")
+            self.one_test(451000, "four hundred fifty one thousand")
 
     unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(Tester))
 
