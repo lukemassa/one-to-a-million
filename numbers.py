@@ -7,7 +7,7 @@ Script to print numbers from 1 to X in alphabetical order
 import argparse
 import unittest
 
-DEFAULT_MAX = 100
+DEFAULT_MAX = 1_000_000
 
 SMALL = ["zero", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"]
 TENS = [None, None, "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"]
@@ -36,6 +36,9 @@ def number_to_word(number):
         thousands_string = "%s thousand" % number_to_word(thousands)
         if three_digits == 0:
             return thousands_string
+        return "%s %s" % (thousands_string, number_to_word(three_digits))
+    if number == 1_000_000:
+        return "one million"
 
 
     raise ValueError("Unexpected number %s" % (number,))
@@ -70,16 +73,24 @@ def run_tests():
             self.one_test(520, "five hundred twenty")
             self.one_test(329, "three hundred twenty nine")
 
-        def test_thousand(self):
+        def test_thousands(self):
             self.one_test(1000, "one thousand")
             self.one_test(4000, "four thousand")
             self.one_test(45000, "forty five thousand")
             self.one_test(451000, "four hundred fifty one thousand")
+        
+        def test_thousands_with_hundreds(self):
+            self.one_test(1001, "one thousand one")
+            self.one_test(4511, "four thousand five hundred eleven")
+            self.one_test(201592, "two hundred one thousand five hundred ninety two")
+
+        def test_million(self):
+            self.one_test(1_000_000, "one million")
 
     unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(Tester))
 
 def show(max_number):
-    numbers = [number_to_word(x) for x in range(1, max_number+1)]
+    numbers = [number_to_word(x) for x in range(0, max_number+1)]
     for number in sorted(numbers):
         print(number)
 
