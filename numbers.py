@@ -25,7 +25,7 @@ def number_to_word(number):
         hundred = SMALL[digits[2]] + " hundred"
         if two_digits == 0:
             return hundred
-        return "%s %s" % (hundred, number_to_word(two_digits))
+        return "%s and %s" % (hundred, number_to_word(two_digits))
     if number < 1_000_000:
         three_digits = 100 * digits[2] + 10 * digits[1] + digits[0]
         thousands = digits[3]
@@ -70,19 +70,19 @@ def run_tests():
         def test_hundreds(self):
             self.one_test(100, "one hundred")
             self.one_test(500, "five hundred")
-            self.one_test(520, "five hundred twenty")
-            self.one_test(329, "three hundred twenty nine")
+            self.one_test(520, "five hundred and twenty")
+            self.one_test(329, "three hundred and twenty nine")
 
         def test_thousands(self):
             self.one_test(1000, "one thousand")
             self.one_test(4000, "four thousand")
             self.one_test(45000, "forty five thousand")
-            self.one_test(451000, "four hundred fifty one thousand")
+            self.one_test(451000, "four hundred and fifty one thousand")
         
         def test_thousands_with_hundreds(self):
             self.one_test(1001, "one thousand one")
-            self.one_test(4511, "four thousand five hundred eleven")
-            self.one_test(201592, "two hundred one thousand five hundred ninety two")
+            self.one_test(4511, "four thousand five hundred and eleven")
+            self.one_test(201592, "two hundred and one thousand five hundred and ninety two")
 
         def test_million(self):
             self.one_test(1_000_000, "one million")
