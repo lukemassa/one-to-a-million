@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 
+"""
+Script to print numbers from 1 to X in alphabetical order
+"""
+
 import argparse
 import unittest
 
