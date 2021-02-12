@@ -77,6 +77,7 @@ def run_tests():
             self.one_test(1000, "one thousand")
             self.one_test(4000, "four thousand")
             self.one_test(45000, "forty five thousand")
+            self.one_test(100000, "one hundred thousand")
             self.one_test(451000, "four hundred and fifty one thousand")
         
         def test_thousands_with_hundreds(self):
